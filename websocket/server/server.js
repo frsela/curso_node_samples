@@ -10,24 +10,20 @@ var WebSocketServer = require('websocket').server
     http = require('http');
 
 function websocket_sample_server() {
-
 }
 
 websocket_sample_server.prototype = {
-  onHTTPMessage: function() {
-
-  },
-
   init: function(ip, port) {
     this.ip = ip;
     this.port = port;
-    this.wsConnections = 0;
+    this.wsConnections = [];
+    this.wsConnectionsCount = 0;
     this.wsMaxConnections = 10;
   },
 
   start: function() {
     // HTTP init
-    this.server = require('http').createServer(this.onHTTPMessage.bind(this));
+    this.server = http.createServer(this.onHTTPMessage.bind(this));
     this.server.listen(8888, '0.0.0.0');
     console.log('Websocket server listening at 8888');
 
@@ -74,11 +70,16 @@ websocket_sample_server.prototype = {
       console.log(' Message = ' + message.utf8Data);
 
       connection.sendUTF('PONG ' + message.utf8Data);
+
+      for (var con in this.wsConnections) {
+        this.wsConnections[con].sendUTF('BROADCAST: ' + message.utf8Data);
+      }
     };
 
     this.onWSClose = function(reasonCode, description) {
       console.log('WebSocket closed - ' + reasonCode);
       console.log(' Reason = ' + description);
+      this.wsConnectionsCount--;
     };
 
     this.originIsAllowed = function(origin) {
@@ -91,8 +92,8 @@ websocket_sample_server.prototype = {
     // Websocket creation
     //////////////////////
     console.log('WebSocket: Creating a new one. Currently ' +
-      this.wsConnections + ' connections');
-    if (this.wsConnections > this.wsMaxConnections) {
+      this.wsConnectionsCount + ' connections');
+    if (this.wsConnectionsCount > this.wsMaxConnections) {
       console.log(' Currently ' + this.wsMaxConnections + 
         ' connections. This is the limit in this sample');
       return request.reject();
@@ -107,10 +108,14 @@ websocket_sample_server.prototype = {
     // \o/ Connection accepted
     try {
       var connection = request.accept('curso-node', request.origin);
-      this.wsConnections++;
+      this.wsConnectionsCount++;
+      this.wsConnections.push(connection);
       console.log(' Accepted !');
-      connection.on('message', this.onWSMessage);
-      connection.on('close', this.onWSClose);
+      connection.on('message', this.onWSMessage.bind(this));
+      connection.on('close', this.onWSClose.bind(this));
+      setInterval(function() {
+        connection.send('Server time: ' + new Date);
+      }, 5000);
     } catch(e) {
       console.log('WebSocket - Connection from origin ' + request.origin +
         ' rejected. Bad subprotocol');
