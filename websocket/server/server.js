@@ -24,8 +24,8 @@ websocket_sample_server.prototype = {
   start: function() {
     // HTTP init
     this.server = http.createServer(this.onHTTPMessage.bind(this));
-    this.server.listen(8888, '0.0.0.0');
-    console.log('Websocket server listening at 8888');
+    this.server.listen(this.port, this.ip);
+    console.log('Websocket server listening at ' + this.port);
 
     // Websocket init
     this.wsServer = new WebSocketServer({

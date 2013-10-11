@@ -34,8 +34,8 @@ socketio_express_sample_server.prototype = {
       res.send('Hello');
     });
 
-    this.server.listen(8888, '0.0.0.0');
-    console.log('Express server listening at 8888');
+    this.server.listen(this.port, this.ip);
+    console.log('Express server listening at ' + this.port);
 
     // Socket.IO init
     this.sioServer = SocketIOServer.listen(this.server);
