@@ -31,7 +31,7 @@ socketio_express_sample_server.prototype = {
     })
 
     app.get('/', function(req, res) {
-      res.send('Hello');
+      res.send('Hello (Socket.IO with express)');
     });
 
     this.server.listen(this.port, this.ip);

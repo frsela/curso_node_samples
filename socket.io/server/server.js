@@ -42,6 +42,7 @@ socketio_sample_server.prototype = {
     response.setHeader('Content-Type', 'text/html');
     response.statusCode = 200;
     response.write('This is a sample server. HTTP response');
+    response.write('Socket.IO');
     response.end();
   },
 
