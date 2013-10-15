@@ -1,0 +1,35 @@
+{
+    "name": "AMQP_sample",
+    "version": "0.0.1",
+    "author": "Telefónica I+D. 2013",
+    "description": "A AMQP sample (producer-consumer)",
+    "contributors": [
+        {
+            "name": "Fernando Rodriguez Sela",
+            "email": "frsela@tid.es"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/frsela/curso_node_samples"
+    },
+    "bugs": {
+        "url": "https://github.com/frsela/curso_node_samples/issues"
+    },
+    "keywords": [
+        "amqp",
+	"message queue",
+	"rabbitmq",
+        "server"
+    ],
+    "dependencies": {
+	"amqp": "0.1.x"
+    },
+    "engines": {
+        "node": ">=0.8.x"
+    },
+    "license": {
+        "type": "GNU Affero General Public License",
+        "url": "http://www.gnu.org/licenses/agpl-3.0.html"
+    }
+}
