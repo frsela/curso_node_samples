@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+/* jshint node: true */
+/**
+ * Simple STOMP producer
+ * (c) Telefonica Digital, 2013 - All rights reserved
+ * License: GNU Affero V3 (see LICENSE file)
+ * Fernando Rodríguez Sela <frsela@tid.es>
+ */
 
 var stomp = require('stomp');
 

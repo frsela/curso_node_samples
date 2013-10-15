@@ -1,6 +1,6 @@
 /* jshint node: true */
 /**
- * Simple websocket server
+ * Simple socket.io server
  * (c) Telefonica Digital, 2013 - All rights reserved
  * License: GNU Affero V3 (see LICENSE file)
  * Fernando Rodríguez Sela <frsela@tid.es>
